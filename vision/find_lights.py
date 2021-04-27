@@ -1,7 +1,8 @@
 # Untitled - By: s8jesjan - Tue Aug 18 2020
-from machine import I2C
+#from machine import I2C
 from fpioa_manager import fm
 from board import board_info
+from machine import UART
 import sensor
 import image
 import lcd
@@ -15,20 +16,22 @@ lcd.init(freq=15000000)
 sensor.reset(freq=10000000)
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
+#sensor.set_auto_gain(0, 20)
+#sensor.set_saturation(3)
+sensor.set_auto_whitebal(0, rgb_gain_db=(0x52, 0x40, 0x4d))
+#sensor.set_auto_exposure(0)
 sensor.run(1)
 sensor.skip_frames(time=10000)
 distance = 17
-starting_xposition = 20
+starting_xposition = 10
 pixels_threshold = 50
-green_threshold = (9, 100, -128, -24, 9, 53)
-yellow_threshold = (9, 100, -31, 5, 13, 91)
-red_threshold = (11, 100, -1, 30, -3, 24)
+green_threshold = (18, 100, -128, -16, -128, 74)
+yellow_threshold = (18, 100, -25, 18, 46, 127)
+red_threshold = (18, 100, -15, 127, 1, 52)
 light_string = "o"*15
 distance_threshold=30
 average_list=[]
-running = True
-
-
+running = False
 
 def averageLight(average_list):
     position_list=[""]*15
@@ -56,7 +59,7 @@ while True:
                 light_list.append(light)
             lights=[]
             g_blobs = img.find_blobs([green_threshold], pixels_threshold=30)
-            y_blobs = img.find_blobs([yellow_threshold], pixels_threshold=25, area_threshold=40)#, #pixels_threshold=pixels_threshold)
+            y_blobs = img.find_blobs([yellow_threshold], pixels_threshold=10, area_threshold=10)#, #pixels_threshold=pixels_threshold)
             r_blobs = img.find_blobs([red_threshold], pixels_threshold=8)#, #pixels_threshold=pixels_threshold)
             blobs_c = [{'color': 'g', 'blobs': g_blobs}, {'color': 'y', 'blobs': y_blobs}, {'color': 'r', 'blobs':r_blobs}]
             for blobs in blobs_c:
@@ -71,7 +74,7 @@ while True:
                     for b in blobs['blobs']:
                         lights.append([b, color])
                         rect = b.rect()
-                        tmp=img.draw_rectangle(b[0:4], color=fill_color, thickness=10)
+                        #tmp=img.draw_rectangle(b[0:4], color=fill_color, thickness=10)
             if (lights and len(lights)<=15):
                 light_string = ""
                 while lights:
@@ -93,9 +96,8 @@ while True:
                     light_string += light
             average_list.append(light_string)
             if len(average_list) == 10:
+                print(average_list)
                 running = False
-
-
                 print("Average: ", end = "")
                 light_string = averageLight(average_list)
                 average_list.clear()
@@ -107,9 +109,13 @@ while True:
     while not running:
         data = uart_A.read()
         if data:
-            running = True
+            print(data.decode() + "recieved")
+            if data.decode()=="1":
+                running = True
+                print("true")
+        time.sleep(1)
 
 
-while True:
+"""while True:
     img=sensor.snapshot()
-    lcd.display(img)
+    lcd.display(img)"""
