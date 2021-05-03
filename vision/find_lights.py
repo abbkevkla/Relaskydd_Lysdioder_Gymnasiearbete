@@ -29,9 +29,11 @@ green_threshold = (18, 100, -128, -16, -128, 74)
 yellow_threshold = (18, 100, -25, 18, 46, 127)
 red_threshold = (18, 100, -15, 127, 1, 52)
 light_string = "o"*15
-distance_threshold=30
+distance_upper_threshold=30
+distance_lower_threshold=30
 average_list=[]
 running = False
+err = False
 
 def averageLight(average_list):  #find average for each position in list of results
     position_list=[""]*15
@@ -82,19 +84,23 @@ while True:
                     for light in lights:
                         if light[0].x() < min_x_light[0].x():
                             min_x_light = light
-                    if min_x_light[0].x()-distance_threshold >= last_light[1]: #if next blob is out of range
+                    if min_x_light[0].x()-distance_upper_threshold >= last_light[1]: #if next blob is out of range
                         last_light[1] += 20 #add 20 to start of searching area
                         if last_light[0] < 15:
                             light_list[last_light[0]] = "o" #empty light
+                    else if min_x_light[0].x() - distance_lower_threshold <= last_light[1]:
+                        err = true
                     else:
                         if last_light[0]<15:  #if there's a light in the first position
                             light_list[last_light[0]] = min_x_light[1] #minimum position is set to its x value
                         lights.remove(min_x_light)
                         last_light[1] = min_x_light[0].x()
+                    img.draw_line(min_x_light[0].x(), 0, min_x_light[0].x(), 255, color=(0,255,255), thickness=1); #draws separation lines
                     last_light[0] += 1
                 for light in light_list:
                     light_string += light
-            average_list.append(light_string)
+            if !err:
+                average_list.append(light_string)
             if len(average_list) == 10: #when 10 recordings hade been made, format and send string
                 print(average_list)
                 running = False
