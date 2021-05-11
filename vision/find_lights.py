@@ -30,9 +30,9 @@ yellow_threshold = (18, 100, -25, 18, 46, 127)
 red_threshold = (18, 100, -15, 127, 1, 52)
 light_string = "o"*15
 distance_upper_threshold=30
-distance_lower_threshold=30
+distance_lower_threshold=5
 average_list=[]
-running = False
+running = True
 err = False
 
 def averageLight(average_list):  #find average for each position in list of results
@@ -88,7 +88,7 @@ while True:
                         last_light[1] += 20 #add 20 to start of searching area
                         if last_light[0] < 15:
                             light_list[last_light[0]] = "o" #empty light
-                    else if min_x_light[0].x() - distance_lower_threshold <= last_light[1]:
+                    elif min_x_light[0].x() - distance_lower_threshold <= last_light[1]:
                         err = true
                     else:
                         if last_light[0]<15:  #if there's a light in the first position
@@ -99,7 +99,10 @@ while True:
                     last_light[0] += 1
                 for light in light_list:
                     light_string += light
-            if !err:
+            if err:
+                err = False
+
+            else:
                 average_list.append(light_string)
             if len(average_list) == 10: #when 10 recordings hade been made, format and send string
                 print(average_list)
