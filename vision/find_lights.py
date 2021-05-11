@@ -36,7 +36,7 @@ light_string = "o"*15
 distance_upper_threshold = 30
 distance_lower_threshold = 5
 average_list = []
-running = True
+running = False
 err = False
 
 
@@ -86,8 +86,6 @@ while True:
                     del r_blobs[i]
                 else:
                     i += 1
-            for i in range(15):
-                tmp = img.draw_rectangle(17 + 19*i, 70, 19, 40)
             blobs_c = [{'color': 'g', 'blobs': g_blobs}, {'color': 'y', 'blobs': y_blobs}, {
                 'color': 'r', 'blobs': r_blobs}]  # object with color blobs
             for blobs in blobs_c:
@@ -109,6 +107,8 @@ while True:
                 light_string = ""
                 while lights:
                     min_x_light = lights[0]
+                    img.draw_line(last_light[1]+distance_upper_threshold, 0, last_light[1]+distance_upper_threshold, 255, color=(
+                        0, 255, 255), thickness=1)  # draws separation lines
                     for light in lights:
                         if light[0].x() < min_x_light[0].x():
                             min_x_light = light
@@ -126,8 +126,6 @@ while True:
                             light_list[last_light[0]] = min_x_light[1]
                         lights.remove(min_x_light)
                         last_light[1] = min_x_light[0].x()
-                    img.draw_line(min_x_light[0].x(), 0, min_x_light[0].x(), 255, color=(
-                        0, 255, 255), thickness=1)  # draws separation lines
                     last_light[0] += 1
                 for light in light_list:
                     light_string += light
