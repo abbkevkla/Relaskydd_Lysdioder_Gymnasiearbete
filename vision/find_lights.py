@@ -119,7 +119,7 @@ while True:
                         if last_light[0] < 15:
                             light_list[last_light[0]] = "o"  # empty light
                     elif min_x_light[0].x() - distance_lower_threshold <= last_light[1]:
-                        err = true
+                        err = True
                     else:
                         if last_light[0] < 15:  # if there's a light in the first position
                             # minimum position is set to its x value

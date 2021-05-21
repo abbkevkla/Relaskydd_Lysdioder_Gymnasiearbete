@@ -1,0 +1,30 @@
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 14:08:18, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 14:10:00, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 14:47:06, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 14:48:12, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:06:02, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:07:07, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:08:42, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:10:49, id: 1
+ ]
+Failed to open switch.txt. [ timestamp: 2021-05-18 16:11:56, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:23:08, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:24:04, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:24:41, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:27:20, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:27:56, id: 1
+ ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:36:35, id: 1 ]
+Recieved string from camera board is incorrectly formatted. Either the detection failed or the cables are disconnected. Following string was recieved: '' [ timestamp: 2021-05-18 16:39:03, id: 1 ]
