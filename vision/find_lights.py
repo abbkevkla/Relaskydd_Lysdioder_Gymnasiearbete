@@ -38,7 +38,7 @@ distance_lower_threshold = 5
 average_list = []
 running = False
 err = False
-
+errCount = 0
 
 def averageLight(average_list):  # find average for each position in list of results
     position_list = [""]*15
@@ -130,11 +130,13 @@ while True:
                 for light in light_list:
                     light_string += light
             if err:
+                errCount += 1
                 err = False
 
             else:
                 average_list.append(light_string)
             if len(average_list) == 10:  # when 10 recordings hade been made, format and send string
+                errCount = 0
                 print(average_list)
                 running = False
                 print("Average: ", end="")
@@ -144,6 +146,10 @@ while True:
                 light_string = ",".join(light_string_list)+"\n"
                 uart_A.write(light_string)
                 print(light_string)
+            else if errCount >= 5: #if 5 errors have occured
+                running = False
+                average_list.clear()
+                uart_A.write("error")
 
     while not running:
         data = uart_A.read()
