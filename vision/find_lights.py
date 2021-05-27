@@ -149,7 +149,7 @@ while True:
             else if errCount >= 5: #if 5 errors have occured
                 running = False
                 average_list.clear()
-                uart_A.write("error")
+                uart_A.write("error\n")
 
     while not running:
         data = uart_A.read()
