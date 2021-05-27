@@ -36,7 +36,7 @@ light_string = "o"*15
 distance_upper_threshold = 30
 distance_lower_threshold = 5
 average_list = []
-running = False
+running = True
 err = False
 errCount = 0
 
@@ -120,6 +120,7 @@ while True:
                             light_list[last_light[0]] = "o"  # empty light
                     elif min_x_light[0].x() - distance_lower_threshold <= last_light[1]:
                         err = True
+                        lights.remove(min_x_light)
                     else:
                         if last_light[0] < 15:  # if there's a light in the first position
                             # minimum position is set to its x value
@@ -130,6 +131,7 @@ while True:
                 for light in light_list:
                     light_string += light
             if err:
+                print(errCount)
                 errCount += 1
                 err = False
 
@@ -146,9 +148,10 @@ while True:
                 light_string = ",".join(light_string_list)+"\n"
                 uart_A.write(light_string)
                 print(light_string)
-            else if errCount >= 5: #if 5 errors have occured
+            elif errCount >= 5: #if 5 errors have occured
                 running = False
                 average_list.clear()
+                print("error")
                 uart_A.write("error\n")
 
     while not running:
