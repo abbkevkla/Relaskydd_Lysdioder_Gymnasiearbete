@@ -36,7 +36,7 @@ light_string = "o"*15
 distance_upper_threshold = 30
 distance_lower_threshold = 5
 average_list = []
-running = True
+running = False
 err = False
 errCount = 0
 
@@ -46,8 +46,9 @@ def averageLight(average_list):  # find average for each position in list of res
     for lights in average_list:
         j = 0
         for light in lights:
-            position_list[j] += (light)
-            j += 1
+            if not light == "e":
+                position_list[j] += (light)
+                j += 1
     print(position_list)
     for average in position_list:
         light_string += max(average, key=average.count)
@@ -102,7 +103,7 @@ while True:
                         rect = b.rect()
                         tmp = img.draw_rectangle(
                             b[0:4], color=fill_color, thickness=10)
-            print(str(len(lights)))
+            print("N: " + str(len(lights)))
             if (lights and len(lights) <= 15):  # check that there are not too many elements
                 light_string = ""
                 while lights:
@@ -131,13 +132,14 @@ while True:
                 for light in light_list:
                     light_string += light
             if err:
-                print(errCount)
+                print("Errors: ", errCount)
                 errCount += 1
                 err = False
+                average_list.append("eeeeeeeeeeeeeee")
 
             else:
                 average_list.append(light_string)
-            if len(average_list) == 10:  # when 10 recordings hade been made, format and send string
+            if len(average_list) >= 10:  # when 10 recordings hade been made, format and send string
                 errCount = 0
                 print(average_list)
                 running = False
@@ -148,8 +150,9 @@ while True:
                 light_string = ",".join(light_string_list)+"\n"
                 uart_A.write(light_string)
                 print(light_string)
-            elif errCount >= 5: #if 5 errors have occured
+            elif errCount >= 10: #if 5 errors have occured
                 running = False
+                errCount = 0
                 average_list.clear()
                 print("error")
                 uart_A.write("error\n")
