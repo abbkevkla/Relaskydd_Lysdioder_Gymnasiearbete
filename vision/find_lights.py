@@ -131,7 +131,7 @@ while True:
             lights = combineLights(g_blobs, y_blobs, r_blobs)
 
             print("N: " + str(len(lights)))
-            if (lights and len(lights) <= 15):  # check that there are not too many elements
+            if (len(lights) <= 15):  # check that there are not too many elements
                 light_string = ""
                 while lights:
                     min_x_light = lights[0]
